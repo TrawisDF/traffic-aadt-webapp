@@ -1,0 +1,38 @@
+body {
+    font-size: 0.875rem;
+}
+
+.hover-card {
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    cursor: pointer;
+}
+
+.hover-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}
+
+.table th {
+    white-space: nowrap;
+    font-size: 0.8rem;
+}
+
+.table td {
+    vertical-align: middle;
+}
+
+.table-responsive {
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+thead.table-dark th {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+
+.pagination .page-link {
+    padding: 0.2rem 0.5rem;
+    font-size: 0.8rem;
+}

@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% block title %}หน้าหลัก — ข้อมูลปริมาณจราจร{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center mt-2">
+    <div class="col-12 col-xl-10">
+
+        <!-- Hero -->
+        <div class="text-center mb-5">
+            <h1 class="display-6 fw-bold">ระบบข้อมูลปริมาณจราจรเฉลี่ยรายวัน</h1>
+            <p class="lead text-muted">Annual Average Daily Traffic (AADT)</p>
+        </div>
+
+        <!-- Stats row -->
+        <div class="row g-3 mb-5">
+            <div class="col-6 col-md-3">
+                <div class="card text-center border-0 shadow-sm h-100">
+                    <div class="card-body py-3">
+                        <div class="fs-3 fw-bold text-primary">{{ tl_count }}</div>
+                        <div class="text-muted small">รายการข้อมูล ทล.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="card text-center border-0 shadow-sm h-100">
+                    <div class="card-body py-3">
+                        <div class="fs-3 fw-bold text-primary">{{ tl_years | length }}</div>
+                        <div class="text-muted small">ปีที่มีข้อมูล ทล.
+                            {% if tl_years %}({{ tl_years[0] }}–{{ tl_years[-1] }}){% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="card text-center border-0 shadow-sm h-100">
+                    <div class="card-body py-3">
+                        <div class="fs-3 fw-bold text-success">{{ tch_count }}</div>
+                        <div class="text-muted small">รายการข้อมูล ทช.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="card text-center border-0 shadow-sm h-100">
+                    <div class="card-body py-3">
+                        <div class="fs-3 fw-bold text-success">{{ tch_years | length }}</div>
+                        <div class="text-muted small">ปีที่มีข้อมูล ทช.
+                            {% if tch_years %}({{ tch_years[0] }}–{{ tch_years[-1] }} พ.ศ.){% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Data source cards -->
+        <div class="row g-4">
+            <div class="col-md-6">
+                <a href="/tl" class="text-decoration-none">
+                    <div class="card h-100 border-primary border-2 shadow hover-card">
+                        <div class="card-body p-4">
+                            <h3 class="card-title text-primary mb-3">&#128652; กรมทางหลวง (ทล.)</h3>
+                            <p class="card-text text-secondary mb-3">
+                                ข้อมูลปริมาณจราจรบนทางหลวงแผ่นดิน<br>
+                                ข้อมูลครอบคลุมทั่วประเทศไทย
+                                {% if tl_years %}ตั้งแต่ปี {{ tl_years[0] }} ถึง {{ tl_years[-1] }} (ค.ศ.){% endif %}
+                            </p>
+                            <span class="btn btn-primary">ดูข้อมูล &#8594;</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-6">
+                <a href="/tch" class="text-decoration-none">
+                    <div class="card h-100 border-success border-2 shadow hover-card">
+                        <div class="card-body p-4">
+                            <h3 class="card-title text-success mb-3">&#128656; กรมทางหลวงชนบท (ทช.)</h3>
+                            <p class="card-text text-secondary mb-3">
+                                ข้อมูลปริมาณจราจรบนทางหลวงชนบท<br>
+                                {% if tch_years %}ปีงบประมาณ {{ tch_years[0] }}–{{ tch_years[-1] }} (พ.ศ.){% endif %}
+                            </p>
+                            <span class="btn btn-success">ดูข้อมูล &#8594;</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}
