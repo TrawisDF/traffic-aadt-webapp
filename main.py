@@ -73,7 +73,7 @@ def index(request: Request):
     with get_conn(TL_DB) as c:
         tl_count = c.execute("SELECT COUNT(*) FROM traffic").fetchone()[0]
         tl_years = [r[0] for r in c.execute(
-            "SELECT DISTINCT year_ad FROM traffic ORDER BY year_ad")]
+            "SELECT DISTINCT year_be FROM traffic ORDER BY year_be")]
     with get_conn(TCH_DB) as c:
         tch_count = c.execute("SELECT COUNT(*) FROM aadt").fetchone()[0]
         tch_years = [r[0] for r in c.execute(
@@ -94,12 +94,12 @@ def tl(request: Request,
     with get_conn(TL_DB) as conn:
         cur = conn.cursor()
         years = [r[0] for r in cur.execute(
-            "SELECT DISTINCT year_ad FROM traffic ORDER BY year_ad DESC")]
+            "SELECT DISTINCT year_be FROM traffic ORDER BY year_be DESC")]
         provinces = [r[0] for r in cur.execute(
             "SELECT DISTINCT province FROM traffic WHERE province != '' ORDER BY province")]
 
         conds, params = [], []
-        if year:        conds.append("year_ad = ?");       params.append(int(year))
+        if year:        conds.append("year_be = ?");       params.append(int(year))
         if province:    conds.append("province = ?");      params.append(province)
         if highway_no:  conds.append("highway_no LIKE ?"); params.append(f"%{highway_no}%")
         if search:      conds.append("road_name LIKE ?");  params.append(f"%{search}%")
@@ -108,10 +108,10 @@ def tl(request: Request,
         total  = cur.execute(f"SELECT COUNT(*) FROM traffic {where}", params).fetchone()[0]
         offset = (page - 1) * PAGE_SIZE
         rows   = cur.execute(
-            f"""SELECT year_ad, highway_no, control_section, road_name, survey_point,
+            f"""SELECT year_be, highway_no, control_section, road_name, survey_point,
                        total, heavy_pct, district, province
                 FROM traffic {where}
-                ORDER BY year_ad DESC, CAST(highway_no AS INTEGER)
+                ORDER BY year_be DESC, CAST(highway_no AS INTEGER)
                 LIMIT ? OFFSET ?""",
             params + [PAGE_SIZE, offset],
         ).fetchall()
@@ -134,13 +134,13 @@ def tl_download(year: str = "", province: str = "",
     with get_conn(TL_DB) as conn:
         cur = conn.cursor()
         conds, params = [], []
-        if year:       conds.append("year_ad = ?");       params.append(int(year))
+        if year:       conds.append("year_be = ?");       params.append(int(year))
         if province:   conds.append("province = ?");      params.append(province)
         if highway_no: conds.append("highway_no LIKE ?"); params.append(f"%{highway_no}%")
         if search:     conds.append("road_name LIKE ?");  params.append(f"%{search}%")
         where = build_where(conds)
         cur.execute(
-            f"SELECT * FROM traffic {where} ORDER BY year_ad DESC, highway_no", params)
+            f"SELECT * FROM traffic {where} ORDER BY year_be DESC, highway_no", params)
         keys = [d[0] for d in cur.description]
         rows = [tuple(r) for r in cur.fetchall()]
 

@@ -11,7 +11,7 @@
         <div class="row g-2 align-items-end">
 
             <div class="col-6 col-sm-4 col-md-2">
-                <label class="form-label mb-1 small fw-semibold">ปี (ค.ศ.)</label>
+                <label class="form-label mb-1 small fw-semibold">ปี (พ.ศ.)</label>
                 <select name="year" class="form-select form-select-sm">
                     <option value="">ทุกปี</option>
                     {% for y in years %}
@@ -68,7 +68,7 @@
     <table class="table table-sm table-striped table-hover table-bordered mb-0 bg-white">
         <thead class="table-dark">
             <tr>
-                <th>ปี (ค.ศ.)</th>
+                <th>ปี (พ.ศ.)</th>
                 <th>ทล.</th>
                 <th>ตอน</th>
                 <th>ชื่อสายทาง</th>
@@ -82,7 +82,7 @@
         <tbody>
             {% for r in rows %}
             <tr>
-                <td>{{ r.year_ad }}</td>
+                <td>{{ r.year_be }}</td>
                 <td class="fw-semibold">{{ r.highway_no }}</td>
                 <td>{{ r.control_section }}</td>
                 <td>{{ r.road_name }}</td>
