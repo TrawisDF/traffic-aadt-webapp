@@ -57,6 +57,17 @@ def paginate(page, total_pages, window=2):
 def health():
     return Response()
 
+@app.get("/debug")
+def debug():
+    return {
+        "BASE": BASE,
+        "TL_DB": TL_DB,
+        "TL_DB_exists": os.path.exists(TL_DB),
+        "TCH_DB": TCH_DB,
+        "TCH_DB_exists": os.path.exists(TCH_DB),
+        "data_dir": os.listdir(os.path.join(BASE, "data")) if os.path.exists(os.path.join(BASE, "data")) else "missing",
+    }
+
 @app.get("/")
 def index(request: Request):
     with get_conn(TL_DB) as c:
