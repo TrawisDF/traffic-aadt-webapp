@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Request
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import StreamingResponse
+from fastapi.responses import StreamingResponse, Response
 import sqlite3, os, csv, io, math
 
 app = FastAPI(title="Traffic Data")
@@ -52,6 +52,10 @@ def paginate(page, total_pages, window=2):
 
 
 # ─── Home ────────────────────────────────────────────────────────────────────
+
+@app.head("/")
+def health():
+    return Response()
 
 @app.get("/")
 def index(request: Request):
